@@ -1,5 +1,5 @@
 import { createElement } from '../../render.js';
-import { formatLabelText } from '../util-view/util.js';
+import { formatLabelText } from '../../utils/util.js';
 
 const SORT_TYPES = [
   { type: 'day', isChecked: true, isDisabled: false },

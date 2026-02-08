@@ -1,15 +1,28 @@
 import { createElement } from '../../render.js';
-import EventOfferItemView from './event-offer-item-view.js';
 
-const createEventOfferListTemplate = () => `
-  <h4 class="visually-hidden">Offers:</h4>
-  <ul class="event__selected-offers">
-    ${new EventOfferItemView().getTemplate()}
-  </ul>
-`;
+const createEventOfferListTemplate = (offers = []) => {
+  if (!offers || offers.length === 0) {
+    return '';
+  }
+
+  const offerItems = offers.map((offer) => `
+    <li class="event__offer">
+      <span class="event__offer-title">${offer.title}</span>
+      &plus;&euro;&nbsp;
+      <span class="event__offer-price">${offer.price}</span>
+    </li>
+  `).join('');
+
+  return `
+    <h4 class="visually-hidden">Offers:</h4>
+    <ul class="event__selected-offers">
+      ${offerItems}
+    </ul>
+  `;
+};
 
 export default class EventOfferListView {
-  constructor(offers) {
+  constructor(offers = []) {
     this.offers = offers;
   }
 
@@ -21,7 +34,6 @@ export default class EventOfferListView {
     if (!this.element) {
       this.element = createElement(this.getTemplate());
     }
-
     return this.element;
   }
 

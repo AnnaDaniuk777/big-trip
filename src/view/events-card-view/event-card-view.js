@@ -8,14 +8,14 @@ import EventOfferListView from './event-offer-list-view.js';
 import FavoriteButtonView from './favorite-button-view.js';
 import RollupButtonView from './rollup-button-view.js';
 
-const createTripEventTemplate = (index = 0, offers = [], isFavorite = false) => {
-  const dateView = new EventDateView(index);
-  const typeView = new EventTypeView(index);
-  const titleView = new EventTitleView(index);
-  const scheduleView = new EventScheduleView(index);
-  const priceView = new EventPriceView(index);
+const createTripEventTemplate = (point, destination, offers) => {
+  const dateView = new EventDateView(point.dateFrom);
+  const typeView = new EventTypeView(point.type);
+  const titleView = new EventTitleView(point.type, destination.name);
+  const scheduleView = new EventScheduleView(point.dateFrom, point.dateTo);
+  const priceView = new EventPriceView(point.basePrice);
   const offersView = new EventOfferListView(offers);
-  const favoriteButtonView = new FavoriteButtonView(isFavorite);
+  const favoriteButtonView = new FavoriteButtonView(point.isFavorite);
   const rollupButtonView = new RollupButtonView();
 
   return `
@@ -35,21 +35,20 @@ const createTripEventTemplate = (index = 0, offers = [], isFavorite = false) => 
 };
 
 export default class EventCardView {
-  constructor(index = 0, offers = [], isFavorite = false) {
-    this.index = index;
+  constructor(point, destination, offers) {
+    this.point = point;
+    this.destination = destination;
     this.offers = offers;
-    this.isFavorite = isFavorite;
   }
 
   getTemplate() {
-    return createTripEventTemplate(this.index, this.offers, this.isFavorite);
+    return createTripEventTemplate(this.point, this.destination, this.offers);
   }
 
   getElement() {
     if (!this.element) {
       this.element = createElement(this.getTemplate());
     }
-
     return this.element;
   }
 
