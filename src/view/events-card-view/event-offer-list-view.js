@@ -1,10 +1,10 @@
 import { createElement } from '../../render.js';
 import EventOfferItemView from './event-offer-item-view.js';
 
-const createEventOfferListTemplate = (offers) => `
+const createEventOfferListTemplate = () => `
   <h4 class="visually-hidden">Offers:</h4>
   <ul class="event__selected-offers">
-    ${offers.map((offer) => new EventOfferItemView(offer.title, offer.price).getTemplate()).join('')}
+    ${new EventOfferItemView().getTemplate()}
   </ul>
 `;
 
