@@ -12,3 +12,9 @@ export const getRandomDate = (start, end) => {
   const randomTime = Math.random() * (endDate - startDate) + startDate;
   return new Date(randomTime);
 };
+
+export const formatDate = (date) => {
+  const day = date.getDate();
+  const month = date.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+  return `${day} ${month}`;
+};
