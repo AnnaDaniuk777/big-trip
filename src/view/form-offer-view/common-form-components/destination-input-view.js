@@ -1,4 +1,5 @@
 import { createElement } from '../../../render.js';
+import { capitalizeFirstLetter } from '../../../utils/util.js';
 
 const createDestinationInputTemplate = (destination = '', selectedType = 'flight') => {
   const destinations = ['Amsterdam', 'Geneva', 'Chamonix'];
@@ -10,14 +11,14 @@ const createDestinationInputTemplate = (destination = '', selectedType = 'flight
   return `
     <div class="event__field-group event__field-group--destination">
       <label class="event__label event__type-output" for="event-destination-1">
-        ${selectedType.charAt(0).toUpperCase() + selectedType.slice(1)}
+        ${capitalizeFirstLetter(selectedType)}
       </label>
       <input
         class="event__input event__input--destination"
         id="event-destination-1"
         type="text"
         name="event-destination"
-        value="${destination}"
+        value="${capitalizeFirstLetter(destination)}"
         list="destination-list-1"
         required
       >
