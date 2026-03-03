@@ -1,4 +1,4 @@
-const OFFERS_BY_TYPE = [
+export const OFFERS_BY_TYPE = [
   {
     type: 'taxi',
     offers: [
@@ -151,4 +151,15 @@ const OFFERS_BY_TYPE = [
   }
 ];
 
-export { OFFERS_BY_TYPE };
+export const getOffersByType = () => [...OFFERS_BY_TYPE];
+
+export const getOffersForType = (type) => {
+  const typeOffers = OFFERS_BY_TYPE.find((offer) => offer.type === type);
+
+  return typeOffers ? typeOffers.offers : [];
+};
+
+export const getOfferById = (type, offerId) => {
+  const offers = getOffersForType(type);
+  return offers.find((offer) => offer.id === offerId);
+};

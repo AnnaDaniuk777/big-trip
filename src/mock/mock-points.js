@@ -1,4 +1,6 @@
-const POINTS = [
+import { getRandomArrayElement } from '../utils/util.js';
+
+export const POINTS = [
   {
     id: 'point-1',
     type: 'taxi',
@@ -91,14 +93,15 @@ const POINTS = [
   }
 ];
 
-const BLANK_POINT = {
-  type: 'flight',
-  destination: '',
-  dateFrom: '',
-  dateTo: '',
-  basePrice: 0,
-  isFavorite: false,
-  offers: []
-};
+export const getPoints = () => [...POINTS];
 
-export { POINTS, BLANK_POINT };
+export const getPointById = (id) =>
+  POINTS.find((point) => point.id === id);
+
+export const getRandomPoint = () =>
+  getRandomArrayElement(POINTS);
+
+export const getRandomPoints = (count) => {
+  const shuffled = [...POINTS].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+};

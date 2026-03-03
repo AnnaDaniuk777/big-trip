@@ -1,4 +1,6 @@
-const DESTINATIONS = [
+import { getRandomArrayElement } from '../utils/util.js';
+
+export const DESTINATIONS = [
   {
     id: 'amsterdam',
     name: 'Amsterdam',
@@ -31,4 +33,10 @@ const DESTINATIONS = [
   }
 ];
 
-export { DESTINATIONS };
+export const getDestinations = () => [...DESTINATIONS];
+
+export const getDestinationById = (id) =>
+  DESTINATIONS.find((destination) => destination.id === id);
+
+export const getRandomDestination = () =>
+  getRandomArrayElement(DESTINATIONS);
