@@ -1,5 +1,5 @@
 import { createElement } from '../../render.js';
-import { formatLabelText } from '../../utils/util.js';
+import { capitalizeFirstLetter } from '../../utils/util.js';
 
 const SORT_TYPES = [
   { type: 'day', isChecked: true, isDisabled: false },
@@ -12,7 +12,7 @@ const SORT_TYPES = [
 const createSortingItemTemplate = (item) => `
   <div class="trip-sort__item  trip-sort__item--${item.type}">
     <input id="sort-${item.type}" class="trip-sort__input  visually-hidden" type="radio" name="trip-sort" value="sort-${item.type}"  ${item.isChecked ? 'checked' : ''} ${item.isDisabled ? 'disabled' : ''}>
-    <label class="trip-sort__btn" for="sort-${item.type}">${formatLabelText(item.type)}</label>
+    <label class="trip-sort__btn" for="sort-${item.type}">${capitalizeFirstLetter(item.type)}</label>
   </div>
 `;
 

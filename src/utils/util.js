@@ -1,4 +1,4 @@
-export const formatLabelText = (type) => type.charAt(0).toUpperCase() + type.slice(1);
+export const capitalizeFirstLetter = (type) => type.charAt(0).toUpperCase() + type.slice(1);
 
 export const getRandomArrayElement = (items) => items[Math.floor(Math.random() * items.length)];
 

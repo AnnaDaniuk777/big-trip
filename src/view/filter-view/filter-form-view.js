@@ -1,5 +1,5 @@
 import { createElement } from '../../render.js';
-import { formatLabelText } from '../../utils/util.js';
+import { capitalizeFirstLetter } from '../../utils/util.js';
 
 const FILTER_TYPES = [
   { type: 'everything', isChecked: true },
@@ -11,7 +11,7 @@ const FILTER_TYPES = [
 const createFilterItemTemplate = (item) => `
   <div class="trip-filters__filter">
     <input id="filter-${item.type}" class="trip-filters__filter-input  visually-hidden" type="radio" name="trip-filter" value="${item.type}" ${item.isChecked ? 'checked' : ''}>
-      <label class="trip-filters__filter-label" for="filter-${item.type}">${formatLabelText(item.type)}</label>
+      <label class="trip-filters__filter-label" for="filter-${item.type}">${capitalizeFirstLetter(item.type)}</label>
   </div>
 `;
 
