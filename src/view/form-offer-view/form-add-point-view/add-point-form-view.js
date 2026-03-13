@@ -1,4 +1,4 @@
-import { createElement } from '../../../render.js';
+import AbstractView from '../../../framework/view/abstract-view.js';
 import EventTypeListView from '../common-form-components/event-type-list-view.js';
 import DestinationInputView from '../common-form-components/destination-input-view.js';
 import TimeInputsView from '../common-form-components/time-inputs-view.js';
@@ -25,39 +25,28 @@ const createAddPointFormTemplate = () => {
             </label>
             <input class="event__type-toggle visually-hidden" id="event-type-toggle-1" type="checkbox">
 
-            ${typeListView.getTemplate()}
+            ${typeListView.template}
           </div>
 
-          ${destinationInputView.getTemplate()}
-          ${timeInputsView.getTemplate()}
-          ${priceInputView.getTemplate()}
+          ${destinationInputView.template}
+          ${timeInputsView.template}
+          ${priceInputView.template}
 
           <button class="event__save-btn btn btn--blue" type="submit">Save</button>
           <button class="event__reset-btn" type="reset">Cancel</button>
         </header>
 
         <section class="event__details">
-          ${offersListView.getTemplate()}
-          ${destinationDescriptionView.getTemplate()}
+          ${offersListView.template}
+          ${destinationDescriptionView.template}
         </section>
       </form>
     </li>
   `;
 };
 
-export default class AddPointFormView {
-  getTemplate() {
+export default class AddPointFormView extends AbstractView {
+  get template() {
     return createAddPointFormTemplate();
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
   }
 }

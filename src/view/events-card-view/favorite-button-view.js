@@ -1,4 +1,4 @@
-import { createElement } from '../../render.js';
+import AbstractView from '../../framework/view/abstract-view.js';
 
 const createFavoriteButtonTemplate = (isActive) => `
   <button class="event__favorite-btn ${isActive ? 'event__favorite-btn--active' : ''}" type="button">
@@ -9,24 +9,15 @@ const createFavoriteButtonTemplate = (isActive) => `
   </button>
 `;
 
-export default class FavoriteButtonView {
-  constructor(isActive = false) {
-    this.isActive = isActive;
+export default class FavoriteButtonView extends AbstractView {
+  #isActive = null;
+
+  constructor({isActive = false}) {
+    super();
+    this.#isActive = isActive;
   }
 
-  getTemplate() {
-    return createFavoriteButtonTemplate(this.isActive);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createFavoriteButtonTemplate(this.#isActive);
   }
 }

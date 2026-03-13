@@ -1,4 +1,4 @@
-import { createElement } from '../../render.js';
+import AbstractView from '../../framework/view/abstract-view.js';
 import TripTitleView from './trip-title-view.js';
 import TripDatesView from './trip-dates-view.js';
 import TripCostView from './trip-cost-view.js';
@@ -11,33 +11,27 @@ const createTripInfoTemplate = (title, dates, cost) => {
   return `
     <section class="trip-main__trip-info  trip-info">
       <div class="trip-info__main">
-        ${titleView.getTemplate()}
-        ${datesView.getTemplate()}
+        ${titleView.template}
+        ${datesView.template}
       </div>
-      ${costView.getTemplate()}
+      ${costView.template}
     </section>
   `;
 };
 
-export default class TripInfoView {
-  constructor(title, dates, cost) {
-    this.title = title;
-    this.dates = dates;
-    this.cost = cost;
+export default class TripInfoView extends AbstractView {
+  #title = null;
+  #dates = null;
+  #cost = null;
+
+  constructor({title, dates, cost}) {
+    super();
+    this.#title = title;
+    this.#dates = dates;
+    this.#cost = cost;
   }
 
-  getTemplate() {
-    return createTripInfoTemplate(this.title, this.dates, this.cost);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createTripInfoTemplate(this.#title, this.#dates, this.#cost);
   }
 }

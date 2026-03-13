@@ -1,4 +1,4 @@
-import { createElement } from '../../../render.js';
+import AbstractView from '../../../framework/view/abstract-view.js';
 import { capitalizeFirstLetter } from '../../../utils/util.js';
 
 const createDestinationInputTemplate = (destination = '', selectedType = 'flight') => {
@@ -29,24 +29,17 @@ const createDestinationInputTemplate = (destination = '', selectedType = 'flight
   `;
 };
 
-export default class DestinationInputView {
-  constructor(destination = '', selectedType = 'flight') {
-    this.destination = destination;
-    this.selectedType = selectedType;
+export default class DestinationInputView extends AbstractView {
+  #destination = null;
+  #selectedType = null;
+
+  constructor({destination = '', selectedType = 'flight'}) {
+    super();
+    this.#destination = destination;
+    this.#selectedType = selectedType;
   }
 
-  getTemplate() {
-    return createDestinationInputTemplate(this.destination, this.selectedType);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createDestinationInputTemplate(this.#destination, this.#selectedType);
   }
 }

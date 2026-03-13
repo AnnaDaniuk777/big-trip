@@ -1,4 +1,4 @@
-import { createElement } from '../../render.js';
+import AbstractView from '../../framework/view/abstract-view.js';
 
 const formatTime = (dateString) => {
   const date = new Date(dateString);
@@ -34,24 +34,17 @@ const createEventScheduleTemplate = (dateFrom, dateTo) => `
   </div>
 `;
 
-export default class EventScheduleView {
-  constructor(dateFrom, dateTo) {
-    this.dateFrom = dateFrom;
-    this.dateTo = dateTo;
+export default class EventScheduleView extends AbstractView {
+  #dateFrom = null;
+  #dateTo = null;
+
+  constructor({dateFrom, dateTo}) {
+    super();
+    this.#dateFrom = dateFrom;
+    this.#dateTo = dateTo;
   }
 
-  getTemplate() {
-    return createEventScheduleTemplate(this.dateFrom, this.dateTo);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createEventScheduleTemplate(this.#dateFrom, this.#dateTo);
   }
 }

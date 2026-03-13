@@ -1,4 +1,4 @@
-import { createElement } from '../../../render.js';
+import AbstractView from '../../../framework/view/abstract-view.js';
 
 const createPriceInputTemplate = (price = '') => `
   <div class="event__field-group event__field-group--price">
@@ -18,23 +18,15 @@ const createPriceInputTemplate = (price = '') => `
   </div>
 `;
 
-export default class PriceInputView {
-  constructor(price = '') {
-    this.price = price;
+export default class PriceInputView extends AbstractView {
+  #price = null;
+
+  constructor({price = ''}) {
+    super();
+    this.#price = price;
   }
 
-  getTemplate() {
-    return createPriceInputTemplate(this.price);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createPriceInputTemplate(this.#price);
   }
 }

@@ -1,4 +1,4 @@
-import { createElement } from '../../../render.js';
+import AbstractView from '../../../framework/view/abstract-view.js';
 import EventTypeListView from '../common-form-components/event-type-list-view.js';
 import DestinationInputView from '../common-form-components/destination-input-view.js';
 import TimeInputsView from '../common-form-components/time-inputs-view.js';
@@ -37,12 +37,12 @@ const createEditPointFormTemplate = (eventData = {}) => {
             </label>
             <input class="event__type-toggle visually-hidden" id="event-type-toggle-1" type="checkbox">
 
-            ${typeListView.getTemplate()}
+            ${typeListView.template}
           </div>
 
-          ${destinationInputView.getTemplate()}
-          ${timeInputsView.getTemplate()}
-          ${priceInputView.getTemplate()}
+          ${destinationInputView.template}
+          ${timeInputsView.template}
+          ${priceInputView.template}
 
           <button class="event__save-btn btn btn--blue" type="submit">Save</button>
           <button class="event__reset-btn" type="reset">${resetButtonText}</button>
@@ -50,31 +50,23 @@ const createEditPointFormTemplate = (eventData = {}) => {
         </header>
 
         <section class="event__details">
-          ${offersListView.getTemplate()}
-          ${destinationDescriptionView.getTemplate()}
+          ${offersListView.template}
+          ${destinationDescriptionView.template}
         </section>
       </form>
     </li>
   `;
 };
 
-export default class EditPointFormView {
-  constructor(eventData = {}) {
-    this.eventData = eventData;
+export default class EditPointFormView extends AbstractView {
+  #eventData = null;
+
+  constructor({eventData = {}}) {
+    super();
+    this.#eventData = eventData;
   }
 
-  getTemplate() {
-    return createEditPointFormTemplate(this.eventData);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createEditPointFormTemplate(this.#eventData);
   }
 }

@@ -1,4 +1,4 @@
-import { createElement } from '../../render.js';
+import AbstractView from '../../framework/view/abstract-view.js';
 
 const createEventTypeTemplate = (type) => `
   <div class="event__type">
@@ -6,23 +6,15 @@ const createEventTypeTemplate = (type) => `
   </div>
 `;
 
-export default class EventTypeView {
-  constructor(type) {
-    this.type = type;
+export default class EventTypeView extends AbstractView {
+  #type = null;
+
+  constructor({type}) {
+    super();
+    this.#type = type;
   }
 
-  getTemplate() {
-    return createEventTypeTemplate(this.type);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createEventTypeTemplate(this.#type);
   }
 }

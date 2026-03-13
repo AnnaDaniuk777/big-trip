@@ -1,4 +1,4 @@
-import { createElement } from '../../render.js';
+import AbstractView from '../../framework/view/abstract-view.js';
 
 const createEventOfferListTemplate = (offers = []) => {
   if (!offers || offers.length === 0) {
@@ -21,23 +21,15 @@ const createEventOfferListTemplate = (offers = []) => {
   `;
 };
 
-export default class EventOfferListView {
-  constructor(offers = []) {
-    this.offers = offers;
+export default class EventOfferListView extends AbstractView {
+  #offers = null;
+
+  constructor({offers = []}) {
+    super();
+    this.#offers = offers;
   }
 
-  getTemplate() {
-    return createEventOfferListTemplate(this.offers);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createEventOfferListTemplate(this.#offers);
   }
 }

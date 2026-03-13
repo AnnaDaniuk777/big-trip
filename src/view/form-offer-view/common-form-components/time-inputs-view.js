@@ -1,4 +1,4 @@
-import { createElement } from '../../../render.js';
+import AbstractView from '../../../framework/view/abstract-view.js';
 
 const createTimeInputsTemplate = (startTime = '19/03/19 00:00', endTime = '19/03/19 00:00') => `
   <div class="event__field-group event__field-group--time">
@@ -24,24 +24,17 @@ const createTimeInputsTemplate = (startTime = '19/03/19 00:00', endTime = '19/03
   </div>
 `;
 
-export default class TimeInputsView {
-  constructor(startTime = '19/03/19 00:00', endTime = '19/03/19 00:00') {
-    this.startTime = startTime;
-    this.endTime = endTime;
+export default class TimeInputsView extends AbstractView {
+  #startTime = null;
+  #endTime = null;
+
+  constructor({startTime = '19/03/19 00:00', endTime = '19/03/19 00:00'}) {
+    super();
+    this.#startTime = startTime;
+    this.#endTime = endTime;
   }
 
-  getTemplate() {
-    return createTimeInputsTemplate(this.startTime, this.endTime);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createTimeInputsTemplate(this.#startTime, this.#endTime);
   }
 }

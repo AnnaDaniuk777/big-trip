@@ -1,4 +1,4 @@
-import { createElement } from '../../../render.js';
+import AbstractView from '../../../framework/view/abstract-view.js';
 
 const createDestinationDescriptionTemplate = (destination = 'Geneva') => {
   const descriptions = {
@@ -25,23 +25,15 @@ const createDestinationDescriptionTemplate = (destination = 'Geneva') => {
   `;
 };
 
-export default class DestinationDescriptionView {
-  constructor(destination = 'Geneva') {
-    this.destination = destination;
+export default class DestinationDescriptionView extends AbstractView {
+  #destination = null;
+
+  constructor({destination = 'Geneva'}) {
+    super();
+    this.#destination = destination;
   }
 
-  getTemplate() {
-    return createDestinationDescriptionTemplate(this.destination);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createDestinationDescriptionTemplate(this.#destination);
   }
 }

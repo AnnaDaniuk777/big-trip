@@ -1,4 +1,4 @@
-import { createElement } from '../../../render.js';
+import AbstractView from '../../../framework/view/abstract-view.js';
 
 const createOffersListTemplate = (selectedOffers = []) => {
   const offers = [
@@ -36,23 +36,15 @@ const createOffersListTemplate = (selectedOffers = []) => {
   `;
 };
 
-export default class OffersListView {
-  constructor(selectedOffers = []) {
-    this.selectedOffers = selectedOffers;
+export default class OffersListView extends AbstractView {
+  #selectedOffers = null;
+
+  constructor({selectedOffers = []}) {
+    super();
+    this.#selectedOffers = selectedOffers;
   }
 
-  getTemplate() {
-    return createOffersListTemplate(this.selectedOffers);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createOffersListTemplate(this.#selectedOffers);
   }
 }

@@ -1,26 +1,18 @@
-import { createElement } from '../../render.js';
+import AbstractView from '../../framework/view/abstract-view.js';
 
 const createTripDatesTemplate = (dates) => `
   <p class="trip-info__dates">${dates}</p>
 `;
 
-export default class TripDatesView {
-  constructor(dates) {
-    this.dates = dates;
+export default class TripDatesView extends AbstractView {
+  #dates = null;
+
+  constructor({dates}) {
+    super();
+    this.#dates = dates;
   }
 
-  getTemplate() {
-    return createTripDatesTemplate(this.dates);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createTripDatesTemplate(this.#dates);
   }
 }

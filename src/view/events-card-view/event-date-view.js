@@ -1,4 +1,4 @@
-import { createElement } from '../../render.js';
+import AbstractView from '../../framework/view/abstract-view.js';
 
 const createEventDateTemplate = (dateString) => {
   if (!dateString) {
@@ -14,23 +14,15 @@ const createEventDateTemplate = (dateString) => {
     `;
 };
 
-export default class EventDateView {
-  constructor(dateString) {
-    this.dateString = dateString;
+export default class EventDateView extends AbstractView {
+  #dateString = null;
+
+  constructor({dateString}) {
+    super();
+    this.#dateString = dateString;
   }
 
-  getTemplate() {
-    return createEventDateTemplate(this.dateString);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createEventDateTemplate(this.#dateString);
   }
 }

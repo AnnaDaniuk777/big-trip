@@ -1,4 +1,4 @@
-import { createElement } from '../../../render.js';
+import AbstractView from '../../../framework/view/abstract-view.js';
 
 const createEventTypeListTemplate = (selectedType = 'flight') => {
   const types = [
@@ -39,23 +39,15 @@ const createEventTypeListTemplate = (selectedType = 'flight') => {
   `;
 };
 
-export default class EventTypeListView {
-  constructor(selectedType = 'flight') {
-    this.selectedType = selectedType;
+export default class EventTypeListView extends AbstractView {
+  #selectedType = null;
+
+  constructor({selectedType = 'flight'}) {
+    super();
+    this.#selectedType = selectedType;
   }
 
-  getTemplate() {
-    return createEventTypeListTemplate(this.selectedType);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createEventTypeListTemplate(this.#selectedType);
   }
 }

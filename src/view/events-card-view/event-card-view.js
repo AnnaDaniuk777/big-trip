@@ -1,4 +1,4 @@
-import { createElement } from '../../render.js';
+import AbstractView from '../../framework/view/abstract-view.js';
 import EventDateView from './event-date-view.js';
 import EventTypeView from './event-type-view.js';
 import EventTitleView from './event-title-view.js';
@@ -21,38 +21,32 @@ const createTripEventTemplate = (point, destination, offers) => {
   return `
     <li class="trip-events__item">
       <div class="event">
-        ${dateView.getTemplate()}
-        ${typeView.getTemplate()}
-        ${titleView.getTemplate()}
-        ${scheduleView.getTemplate()}
-        ${priceView.getTemplate()}
-        ${offersView.getTemplate()}
-        ${favoriteButtonView.getTemplate()}
-        ${rollupButtonView.getTemplate()}
+        ${dateView.template}
+        ${typeView.template}
+        ${titleView.template}
+        ${scheduleView.template}
+        ${priceView.template}
+        ${offersView.template}
+        ${favoriteButtonView.template}
+        ${rollupButtonView.template}
       </div>
     </li>
   `;
 };
 
-export default class EventCardView {
-  constructor(point, destination, offers) {
-    this.point = point;
-    this.destination = destination;
-    this.offers = offers;
+export default class EventCardView extends AbstractView {
+  #point = null;
+  #destination = null;
+  #offers = null;
+
+  constructor({point, destination, offers}) {
+    super();
+    this.#point = point;
+    this.#destination = destination;
+    this.#offers = offers;
   }
 
-  getTemplate() {
-    return createTripEventTemplate(this.point, this.destination, this.offers);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createTripEventTemplate(this.#point, this.#destination, this.#offers);
   }
 }

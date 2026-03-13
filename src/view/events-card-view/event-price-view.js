@@ -1,4 +1,4 @@
-import { createElement } from '../../render.js';
+import AbstractView from '../../framework/view/abstract-view.js';
 
 const createEventPriceTemplate = (price) => `
   <p class="event__price">
@@ -6,23 +6,15 @@ const createEventPriceTemplate = (price) => `
   </p>
 `;
 
-export default class EventPriceView {
-  constructor(price) {
-    this.price = price;
+export default class EventPriceView extends AbstractView {
+  #price = null;
+
+  constructor({price}) {
+    super();
+    this.#price = price;
   }
 
-  getTemplate() {
-    return createEventPriceTemplate(this.price);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
+  get template() {
+    return createEventPriceTemplate(this.#price);
   }
 }

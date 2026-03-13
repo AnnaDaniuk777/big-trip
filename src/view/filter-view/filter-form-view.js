@@ -1,4 +1,4 @@
-import { createElement } from '../../render.js';
+import AbstractView from '../../framework/view/abstract-view.js';
 import { capitalizeFirstLetter } from '../../utils/util.js';
 
 const FILTER_TYPES = [
@@ -25,20 +25,8 @@ function createFilterTemplate() {
   );
 }
 
-export default class FilterFormView {
-  getTemplate() {
+export default class FilterFormView extends AbstractView {
+  get template() {
     return createFilterTemplate();
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
   }
 }
